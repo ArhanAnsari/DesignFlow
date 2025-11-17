@@ -21,7 +21,7 @@ export function Topbar() {
         <MobileNav />
       </div>
       <div className="flex items-center gap-4">
-        <ModeToggle />
+        {/* <ModeToggle /> */}
         <SignedIn>
           <UserButton />
         </SignedIn>
