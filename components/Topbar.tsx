@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { SignedIn, UserButton } from "@clerk/nextjs";
 import { ModeToggle } from "@/components/ModeToggle";
+import { MobileNav } from "./MobileNav";
 
 const pageTitles: Record<string, string> = {
   "/": "Home",
@@ -15,7 +16,10 @@ export function Topbar() {
   const pageTitle = pageTitles[pathname] || "Home";
 
   return (
-    <div className="flex h-16 items-center justify-end px-6 bg-[#0F1117/50]">
+    <div className="flex h-16 items-center justify-between lg:justify-end px-6 bg-[#0F1117]/50">
+      <div className="flex lg:hidden">
+        <MobileNav />
+      </div>
       <div className="flex items-center gap-4">
         <ModeToggle />
         <SignedIn>

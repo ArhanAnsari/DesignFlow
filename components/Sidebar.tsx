@@ -10,21 +10,23 @@ import {
   SignInButton,
   SignOutButton,
 } from "@clerk/nextjs";
+import Image from "next/image";
+import { BriefcaseIcon, HomeIcon } from "@primer/octicons-react";
 
-const navigation = [
+export const navigation = [
   {
     name: "Home",
     href: "/",
-    icon: Cloud,
+    icon: HomeIcon,
   },
   {
     name: "Find Leads",
     href: "/leads",
-    icon: FileText,
+    icon: BriefcaseIcon,
   },
   {
     name: "Manage Clients",
-    href: "/manage-clients",
+    href: "/clients",
     icon: Users,
   },
 ];
@@ -33,12 +35,17 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-screen w-[266px] flex-col bg-[#0F1117/50] px-6 py-10 justify-between">
-      <div className="flex flex-col gap-[70px]">
+    <div className="flex h-screen w-[266px] flex-col bg-[#0F1117]/50 pr-6 py-10 justify-between border-r border-[#101012]">
+      <div className="flex flex-col gap-[70px] pl-6">
         {/* Logo */}
         <div className="flex h-16 items-center gap-2">
-          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600">
-            <Send className="h-5 w-5 text-white" />
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-linear-to-br">
+            <Image
+              src="/icon.png"
+              alt="DesignFlow Logo"
+              width={27}
+              height={16}
+            />
           </div>
           <span className="text-2xl font-semibold text-white font-space">
             DesignFlow
@@ -57,7 +64,7 @@ export function Sidebar() {
                 className={cn(
                   "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors",
                   isActive
-                    ? "bg-gradient-to-b from-[#0061FF] to-[#60EFFF] text-white"
+                    ? "bg-linear-to-b from-[#0061FF] to-[#60EFFF] text-white"
                     : "text-gray-300 hover:bg-[#2a2a2a] hover:text-white"
                 )}
               >
@@ -70,10 +77,10 @@ export function Sidebar() {
       </div>
 
       {/* Logout */}
-      <div className="px-4 py-4 border-t border-[#2a2a2a]">
+      <div className="px-6 py-4 border-t border-[#2a2a2a]">
         <SignedIn>
-          <SignOutButton>
-            <button className="flex w-full items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-300 hover:bg-[#2a2a2a] hover:text-white transition-colors">
+          <SignOutButton redirectUrl="/">
+            <button className="flex w-full items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-300 hover:bg-[#2a2a2a] hover:text-white transition-colors cursor-pointer">
               <LogOut className="h-5 w-5" />
               Logout
             </button>
