@@ -5,11 +5,16 @@ const isPublicRoute = createRouteMatcher([
   "/sign-up(.*)",
   "/sso-callback(.*)",
   "/api/webhooks(.*)",
+  "/landing(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
   if (!isPublicRoute(req)) {
-    await auth.protect();
+    const baseUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://your-domain.com"
+        : "http://localhost:3000";
+    await auth.protect({ unauthenticatedUrl: `${baseUrl}/landing` });
   }
 });
 
