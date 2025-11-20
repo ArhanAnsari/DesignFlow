@@ -1,86 +1,114 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 import LandingMobileNav from "@/components/landing/MobileNav";
 
-const Navbar = () => {
+export default function Navbar() {
   const pathname = usePathname();
+  const { isSignedIn } = useUser();
 
   return (
-    <header className="w-full sticky top-0 z-50 bg-[#2d2d2d]/90 backdrop-blur-xl">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
+    <header
+      className="
+        w-full sticky top-0 z-50 
+        bg-[#F6F7F9]/70 
+        backdrop-blur-xl 
+        border-b border-white/30
+      "
+    >
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-5 py-4">
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <Image src="/icon.svg" alt="logo" width={30} height={30} />
-          <h1 className="font-space text-xl md:text-2xl font-bold text-white">
+          <Image src="/icon.svg" alt="logo" width={32} height={32} />
+          <h1 className="font-space text-xl md:text-2xl font-bold text-gray-900">
             DesignFlow
           </h1>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-4 text-white font-space">
+        <nav className="hidden md:flex items-center gap-6 font-space text-gray-800">
           <Link
             href="/landing"
             className={cn(
-              "px-4 py-2 rounded-3xl hover:bg-white/20 transition",
-              pathname === "/landing" && "bg-white text-black"
+              "px-4 py-2 rounded-xl transition-all duration-200 hover:bg-gray-200/60",
+              pathname === "/landing" &&
+                "bg-gray-900 text-white hover:bg-gray-900"
             )}
           >
             Home
           </Link>
 
-          <Link
+          <a
             href="#partners"
-            className="px-4 py-2 rounded-3xl hover:bg-white/20 transition"
+            className="px-4 py-2 rounded-xl hover:bg-gray-200/60 transition-all duration-200"
           >
             Partners
-          </Link>
+          </a>
 
-          <Link
+          <a
             href="#why-us"
-            className="px-4 py-2 rounded-3xl hover:bg-white/20 transition"
+            className="px-4 py-2 rounded-xl hover:bg-gray-200/60 transition-all duration-200"
           >
-            Why us?
-          </Link>
+            Why Us?
+          </a>
         </nav>
 
         {/* Auth Buttons */}
-        <div className="hidden md:flex gap-3 text-white">
-          <SignedIn>
+        <div className="hidden md:flex items-center gap-4">
+          {isSignedIn ? (
             <Link
               href="/"
-              className="px-5 py-2 bg-[#3285ff] text-white font-space rounded-3xl"
+              className="
+                px-6 py-2.5 
+                bg-blue-600 text-white 
+                font-space font-semibold 
+                rounded-xl shadow-sm 
+                hover:shadow-md hover:bg-blue-700 
+                transition-all duration-200
+              "
             >
               Dashboard
             </Link>
-          </SignedIn>
+          ) : (
+            <>
+              <Link
+                href="/sign-in"
+                className="
+                  px-4 py-2 text-gray-700 
+                  hover:text-gray-900 
+                  font-space transition
+                "
+              >
+                Sign In
+              </Link>
 
-          <SignedOut>
-            <Link href="/sign-in" className="px-4 py-2 rounded-3xl">
-              Sign In
-            </Link>
-            <Link
-              href="/sign-up"
-              className="px-5 py-2 bg-[#3285ff] text-white rounded-3xl"
-            >
-              Sign Up
-            </Link>
-          </SignedOut>
+              <Link
+                href="/sign-up"
+                className="
+                  px-6 py-2.5 
+                  bg-blue-600 text-white 
+                  font-space font-semibold 
+                  rounded-xl shadow-sm 
+                  hover:bg-blue-700 hover:shadow-md 
+                  transition-all duration-200
+                "
+              >
+                Create Account
+              </Link>
+            </>
+          )}
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Navigation */}
         <div className="md:hidden">
           <LandingMobileNav />
         </div>
       </div>
     </header>
   );
-};
-
-export default Navbar;
+}
