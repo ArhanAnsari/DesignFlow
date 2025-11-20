@@ -39,19 +39,19 @@ export default function LandingMobileNav() {
             />
 
             {/* Sliding Drawer */}
-            <motion.div
-              className="
-                fixed top-0 right-0 h-full w-72 
-                bg-[#F6F7F9]/80 backdrop-blur-lg
-                shadow-[0_8px_30px_rgb(0,0,0,0.12)] 
-                z-50 flex flex-col p-6
-                border-l border-white/20
-              "
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "tween", duration: 0.28 }}
-            >
+         <motion.div
+            className="
+            fixed top-0 right-0 h-full w-72 
+            bg-[#F6F7F9]/95 
+            backdrop-blur-xl 
+            shadow-xl z-50 
+            flex flex-col p-6 border-l border-white/30
+            "
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+             exit={{ x: "100%" }}
+             transition={{ type: "tween", duration: 0.25 }}
+          >
               {/* Close Button */}
               <button
                 className="mb-6 self-end text-gray-700 hover:text-gray-900"
