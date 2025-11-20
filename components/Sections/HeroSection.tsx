@@ -4,37 +4,36 @@ import Image from "next/image";
 import { BackgroundRippleEffect } from "../ui/BackgroundRippleEffect";
 import { Badge } from "@/components/ui/badge";
 
-import React from "react";
-
 const HeroSection = () => {
   return (
-    <div className="relative flex min-h-screen w-full flex-col items-center justify-start overflow-hidden max-h-[883px] gap-32 font-space">
+    <section className="relative flex flex-col items-center justify-start min-h-[90vh] w-full overflow-hidden pt-24 px-4">
+
       <BackgroundRippleEffect />
-      <div className="relative z-10 w-full">
-        <div className="flex flex-col items-center justify-center">
-          <Badge className="w-[259px] h-[49px] bg-white text-black text-bold font-space">
-            3500+ pro users
-          </Badge>
-          <div className="flex flex-col gap-9">
-            <h2 className="relative z-10 mx-auto max-w-4xl text-center text-2xl font-bold text-black md:text-4xl lg:text-7xl dark:text-neutral-100">
-              Simplify, Scale, Succeed with Our SaaS Solution
-            </h2>
-            <p className="relative z-10 mx-auto mt-4 max-w-xl text-center text-black text-2xl dark:text-neutral-500">
-              Empower your custom relations by getting trusted clients, faster
-              and easier
-            </p>
-          </div>
-        </div>
+
+      <div className="relative z-10 flex flex-col items-center text-center max-w-4xl">
+        <Badge className="px-6 py-2 bg-white text-black font-semibold text-sm md:text-base">
+          3500+ pro users
+        </Badge>
+
+        <h1 className="mt-8 font-space text-3xl md:text-5xl lg:text-7xl font-bold text-black dark:text-white leading-tight">
+          Simplify, Scale, Succeed with Our SaaS Solution
+        </h1>
+
+        <p className="mt-4 max-w-xl text-lg md:text-xl text-black/70 dark:text-neutral-400">
+          Empower your customer relations by getting trusted clients, faster and easier.
+        </p>
       </div>
+
       <Image
         src="/Leads (2) 1.png"
-        alt="DesignFlow leads dashboard preview"
+        alt="Dashboard Preview"
         width={1101}
         height={806}
-        className="relative z-10 w-full max-w-[1101px]"
+        className="relative z-10 w-full max-w-5xl mt-10 px-4"
         priority
       />
-    </div>
+
+    </section>
   );
 };
 
