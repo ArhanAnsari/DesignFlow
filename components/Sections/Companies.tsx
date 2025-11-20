@@ -1,25 +1,28 @@
 import Image from "next/image";
-import React from "react";
 
 const Companies = () => {
   return (
-    <div
-      className="flex flex-col py-16 items-center justify-center text-center font-space gap-9"
+    <section
       id="partners"
+      className="py-16 flex flex-col items-center gap-8 px-4 text-center font-space"
     >
-      <p className="font-medium text-2xl">
-        Trusted by over 14,540 businesses to enhance learning and drive
-        educational growth.
+      <p className="text-xl md:text-2xl font-medium max-w-2xl">
+        Trusted by over 14,540 businesses to enhance learning and drive educational growth.
       </p>
-      <div className="flex flex-row">
-        <Image src="/image 1.png" alt="" width={126} height={42} />
-        <Image src="/image 2.png" alt="" width={126} height={42} />
-        <Image src="/image 3.png" alt="" width={126} height={42} />
-        <Image src="/image 4.png" alt="" width={126} height={42} />
-        <Image src="/image 5.png" alt="" width={126} height={42} />
-        <Image src="/image 6.png" alt="" width={126} height={42} />
+
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 place-items-center">
+        {[1, 2, 3, 4, 5, 6].map((n) => (
+          <Image
+            key={n}
+            src={`/image ${n}.png`}
+            alt="Company Logo"
+            width={120}
+            height={40}
+            className="object-contain opacity-80 hover:opacity-100 transition"
+          />
+        ))}
       </div>
-    </div>
+    </section>
   );
 };
 
