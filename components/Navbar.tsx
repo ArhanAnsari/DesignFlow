@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { MobileNav } from "./MobileNav";
+import LandingMobileNav from "@/components/landing/MobileNav";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -76,7 +76,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         <div className="md:hidden">
-          <MobileNav />
+          <LandingMobileNav />
         </div>
       </div>
     </header>
