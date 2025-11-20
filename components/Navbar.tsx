@@ -1,86 +1,85 @@
 "use client";
+
 import { cn } from "@/lib/utils";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { ModeToggle } from "./ModeToggle";
+import { MobileNav } from "./MobileNav";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const isActive = pathname === "";
+
   return (
-    <div className=" flex sticky bg-[#2d2d2d] rounded-[50px]">
-      <div className="flex flex-row justify-between items-center py-4 px-7 gap-24">
+    <header className="w-full sticky top-0 z-50 bg-[#2d2d2d]/90 backdrop-blur-xl">
+      <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-4">
+
         {/* Logo */}
-        <div className="flex flex-row gap-0.5">
-          <Image
-            src="/icon.svg"
-            alt="DesignFlow logo"
-            width={27.21}
-            height={16.45}
-          />
-          <h1 className="font-space text-2xl font-bold text-white">
+        <Link href="/" className="flex items-center gap-2">
+          <Image src="/icon.svg" alt="logo" width={30} height={30} />
+          <h1 className="font-space text-xl md:text-2xl font-bold text-white">
             DesignFlow
           </h1>
-        </div>
-        {/* Nav */}
-        <nav className="flex flex-row gap-3">
-          <div
+        </Link>
+
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-4 text-white font-space">
+          <Link
+            href="/landing"
             className={cn(
-              "flex justify-center items-center rounded-4xl text-white",
-              pathname == "/landing" && "bg-white text-black"
+              "px-4 py-2 rounded-3xl hover:bg-white/20 transition",
+              pathname === "/landing" && "bg-white text-black"
             )}
           >
-            <Link href="/landing" className="font-space py-2 px-6">
-              Home
-            </Link>
-          </div>
-          <div
-            className={cn(
-              "flex justify-center items-center rounded-4xl text-white",
-              pathname == "/landing#pricing" && "bg-white text-black"
-            )}
+            Home
+          </Link>
+
+          <Link
+            href="#partners"
+            className="px-4 py-2 rounded-3xl hover:bg-white/20 transition"
           >
-            <Link href="#partners" className="font-space py-2 px-6">
-              Partners
-            </Link>
-          </div>
-          <div
-            className={cn(
-              "flex justify-center items-center rounded-4xl text-white",
-              pathname == "/landing#why-us" && "bg-white text-black"
-            )}
+            Partners
+          </Link>
+
+          <Link
+            href="#why-us"
+            className="px-4 py-2 rounded-3xl hover:bg-white/20 transition"
           >
-            <Link href="#why-us" className="font-space py-2 px-6">
-              Why us?
-            </Link>
-          </div>
+            Why us?
+          </Link>
         </nav>
-        {/* Button */}
-        <div className="flex flex-row gap-0.5">
+
+        {/* Auth Buttons */}
+        <div className="hidden md:flex gap-3 text-white">
           <SignedIn>
-            <div className="flex bg-[#3285ff] justify-center items-center rounded-4xl text-white">
-              <Link href="/" className="font-space py-2 px-6">
-                Dashboard
-              </Link>
-            </div>
+            <Link
+              href="/"
+              className="px-5 py-2 bg-[#3285ff] text-white font-space rounded-3xl"
+            >
+              Dashboard
+            </Link>
           </SignedIn>
+
           <SignedOut>
-            <div className="flex flex-row gap-2.5 text-white">
-              <Link href="/sign-in" className="font-space py-2 px-6">
-                Sign In
-              </Link>
-              <Link href="/sign-up" className="font-space py-2 px-6">
-                Sign Up
-              </Link>
-            </div>
+            <Link href="/sign-in" className="px-4 py-2 rounded-3xl">
+              Sign In
+            </Link>
+            <Link
+              href="/sign-up"
+              className="px-5 py-2 bg-[#3285ff] text-white rounded-3xl"
+            >
+              Sign Up
+            </Link>
           </SignedOut>
-          {/* <ModeToggle /> */}
+        </div>
+
+        {/* Mobile Menu */}
+        <div className="md:hidden">
+          <MobileNav />
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
