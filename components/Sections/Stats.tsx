@@ -1,36 +1,32 @@
-import React from "react";
-
 const Stats = () => {
   return (
-    <div
-      className=" flex justify-center items-center py-10 font-space text-white"
+    <section
       id="why-us"
+      className="py-20 px-4 flex justify-center items-center font-space"
     >
-      <div className="max-w-[1224px] max-h-[572px] rounded-xl bg-[url('/image%207.png')] bg-cover bg-center bg-no-repeat">
-        <div className="py-24 flex flex-col gap-16">
-          <div className=" flex flex-col items-center justify-center">
-            <h1 className="text-white text-center font-medium text-5xl">
-              Empowering Growth and Innovation with Cutting-Edge Technology
-              Solutions
-            </h1>
+      <div className="w-full max-w-6xl rounded-xl bg-[url('/image%207.png')] bg-cover bg-center text-white p-10 md:p-20">
+
+        <h2 className="text-3xl md:text-5xl font-semibold text-center mb-12">
+          Empowering Growth and Innovation with Cutting-Edge Technology Solutions
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+          <div>
+            <h1 className="text-5xl font-bold">2468+</h1>
+            <p className="text-xl">Pro Users</p>
           </div>
-          <div className="flex flex-row justify-center items-center gap-1">
-            <div className="flex flex-col text-center">
-              <h1 className="font-medium text-6xl text-center">2468+</h1>
-              <p className="text-2xl text-center">Pro Users</p>
-            </div>
-            <div className="flex flex-col text-center">
-              <h1 className="font-medium text-6xl">297+</h1>
-              <p className="text-2xl text-center">Customers Managed</p>
-            </div>
-            <div className="flex flex-col text-center">
-              <h1 className="font-medium text-6xl text-center">20,000+</h1>
-              <p className="text-2xl text-center">Leads Found</p>
-            </div>
+          <div>
+            <h1 className="text-5xl font-bold">297+</h1>
+            <p className="text-xl">Customers Managed</p>
+          </div>
+          <div>
+            <h1 className="text-5xl font-bold">20,000+</h1>
+            <p className="text-xl">Leads Found</p>
           </div>
         </div>
+
       </div>
-    </div>
+    </section>
   );
 };
 
