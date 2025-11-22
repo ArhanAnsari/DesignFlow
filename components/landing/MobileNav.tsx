@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { X, Menu } from "lucide-react";
 import { useState } from "react";
+import React from "react";
 import { useUser } from "@clerk/nextjs";
 
 const navLinks = [
@@ -15,6 +16,18 @@ const navLinks = [
 export default function LandingMobileNav() {
   const [open, setOpen] = useState(false);
   const { isSignedIn } = useUser();
+
+  // Prevent body scroll when menu is open
+  React.useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [open]);
 
   return (
     <>
@@ -31,7 +44,7 @@ export default function LandingMobileNav() {
           <>
             {/* Dim Background */}
             <motion.div
-              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[999]"
               onClick={() => setOpen(false)}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -41,12 +54,12 @@ export default function LandingMobileNav() {
             {/* Sliding Drawer */}
          <motion.div
             className="
-            fixed top-0 right-0 h-full w-72 
-            bg-[#F6F7F9]/95 
-            backdrop-blur-xl 
-            shadow-xl z-50 
-            flex flex-col p-6 border-l border-white/30
+            fixed top-0 right-0 h-screen w-[85%] xs:w-72 sm:w-80 
+            bg-white 
+            shadow-2xl z-[1000] 
+            flex flex-col p-6 overflow-y-auto
             "
+            style={{ maxWidth: '100vw' }}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
              exit={{ x: "100%" }}
@@ -61,7 +74,7 @@ export default function LandingMobileNav() {
               </button>
 
               {/* Menu Links */}
-              <nav className="space-y-5 mt-3">
+              <nav className="space-y-3 mt-3 flex-1">
                 {navLinks.map((link, index) => (
                   <motion.div
                     key={link.href}
@@ -73,9 +86,9 @@ export default function LandingMobileNav() {
                       href={link.href}
                       onClick={() => setOpen(false)}
                       className="
-                        block text-lg font-medium 
+                        block text-base md:text-lg font-medium 
                         text-gray-800 hover:text-blue-600 
-                        transition-all tracking-wide
+                        transition-all tracking-wide px-2 py-3
                       "
                     >
                       {link.label}
@@ -146,7 +159,7 @@ export default function LandingMobileNav() {
                           hover:bg-blue-50 transition-all
                         "
                       >
-                        Create Account
+                        Sign Up
                       </Link>
                     </motion.div>
                   </>

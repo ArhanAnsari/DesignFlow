@@ -11,7 +11,7 @@ const HeroSection = () => {
       <BackgroundRippleEffect />
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-4xl">
-        <Badge className="px-6 py-2 bg-white text-black font-semibold text-sm md:text-base">
+        <Badge className="px-6 py-2 bg-white text-black font-semibold text-sm md:text-base shadow-sm border border-gray-200/50">
           3500+ pro users
         </Badge>
 
