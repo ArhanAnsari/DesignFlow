@@ -48,7 +48,7 @@ export async function POST(req: Request) {
 
   // Extract the event type from the webhook payload
   const eventType = evt.type;
-  const resolvedDatabaseId = "691b33d0002fb0460595";
+  const resolvedDatabaseId = process.env.NEXT_PUBLIC_DATABASE_ID!;
   const resolvedUsersTableId = "users";
 
   const { databases } = createAdminClient();
@@ -57,8 +57,15 @@ export async function POST(req: Request) {
   switch (eventType) {
     case "user.created":
       {
-        const { id, email_addresses, first_name, last_name, username } =
-          evt.data;
+        const {
+          id,
+          email_addresses,
+          first_name,
+          last_name,
+          username,
+          image_url,
+          created_at,
+        } = evt.data;
         try {
           await databases.createRow(
             resolvedDatabaseId,
@@ -69,7 +76,10 @@ export async function POST(req: Request) {
               firstName: first_name || "",
               lastName: last_name || "",
               username: username || "",
-              createdAt: new Date().toISOString(),
+              photo: image_url || "",
+              createdAt: created_at
+                ? new Date(created_at).toISOString()
+                : new Date().toISOString(),
               updatedAt: new Date().toISOString(),
             }
           );
@@ -85,8 +95,14 @@ export async function POST(req: Request) {
 
     case "user.updated":
       {
-        const { id, email_addresses, first_name, last_name, username } =
-          evt.data;
+        const {
+          id,
+          email_addresses,
+          first_name,
+          last_name,
+          username,
+          image_url,
+        } = evt.data;
         try {
           await databases.updateRow(
             resolvedDatabaseId,
@@ -97,6 +113,7 @@ export async function POST(req: Request) {
               firstName: first_name || "",
               lastName: last_name || "",
               username: username || "",
+              photo: image_url || "",
               updatedAt: new Date().toISOString(),
             }
           );
