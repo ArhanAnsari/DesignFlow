@@ -1,9 +1,9 @@
 import { Client, Databases, Account, TablesDB, Storage } from "node-appwrite";
 const createAdminClient = () => {
   const client = new Client()
-    .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT)
-    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID)
-    .setKey(process.env.NEXT_PUBLIC_API_KEY);
+    .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
+    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!)
+    .setKey(process.env.NEXT_PUBLIC_API_KEY!);
 
   return {
     get account() {
@@ -17,10 +17,10 @@ const createAdminClient = () => {
     },
   };
 };
-const createSessionClient = async (session) => {
+const createSessionClient = async (session: any) => {
   const client = new Client()
-    .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT)
-    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID);
+    .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
+    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!);
   if (session) {
     client.setSession(session);
   }

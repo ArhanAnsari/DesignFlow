@@ -24,7 +24,13 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <Image src="/icon.svg" alt="logo" width={32} height={32} />
+          <Image 
+            src="/icon.svg" 
+            alt="logo" 
+            width={32} 
+            height={32}
+            className="w-8 h-8"
+          />
           <h1 className="font-space text-xl md:text-2xl font-bold text-gray-900">
             DesignFlow
           </h1>
@@ -98,7 +104,7 @@ export default function Navbar() {
                   transition-all duration-200
                 "
               >
-                Create Account
+                Sign Up
               </Link>
             </>
           )}

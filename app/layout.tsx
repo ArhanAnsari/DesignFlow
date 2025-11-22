@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider appearance={{ theme: dark }}>
-      <html lang="en">
+      <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
         <body
           className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} ${inter.variable} antialiased`}
         >
