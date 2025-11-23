@@ -1,4 +1,4 @@
-import { Client, Databases, Account, TablesDB, Storage } from "node-appwrite";
+import { Client, Databases, Account, Storage } from "node-appwrite";
 
 /**
  * Create an admin client for server-side operations
@@ -7,11 +7,11 @@ import { Client, Databases, Account, TablesDB, Storage } from "node-appwrite";
 const createAdminClient = () => {
   const endpoint = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT;
   const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
-  const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+  const apiKey = process.env.APPWRITE_API_KEY;
 
   if (!endpoint || !projectId || !apiKey) {
     throw new Error(
-      "Missing Appwrite configuration. Please ensure NEXT_PUBLIC_APPWRITE_ENDPOINT, NEXT_PUBLIC_APPWRITE_PROJECT_ID, and NEXT_PUBLIC_API_KEY are set."
+      "Missing Appwrite configuration. Please ensure NEXT_PUBLIC_APPWRITE_ENDPOINT, NEXT_PUBLIC_APPWRITE_PROJECT_ID, and APPWRITE_API_KEY are set."
     );
   }
 
@@ -25,7 +25,7 @@ const createAdminClient = () => {
       return new Account(client);
     },
     get databases() {
-      return new TablesDB(client);
+      return new Databases(client);
     },
     get storage() {
       return new Storage(client);
@@ -47,9 +47,7 @@ const createSessionClient = async (session: string | null) => {
     );
   }
 
-  const client = new Client()
-    .setEndpoint(endpoint)
-    .setProject(projectId);
+  const client = new Client().setEndpoint(endpoint).setProject(projectId);
 
   if (session) {
     client.setSession(session);
@@ -60,7 +58,7 @@ const createSessionClient = async (session: string | null) => {
       return new Account(client);
     },
     get databases() {
-      return new TablesDB(client);
+      return new Databases(client);
     },
     get storage() {
       return new Storage(client);

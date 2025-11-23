@@ -66,7 +66,7 @@ export async function POST(req: Request) {
           created_at,
         } = evt.data;
         try {
-          await databases.createRow(
+          await databases.createDocument(
             resolvedDatabaseId,
             resolvedUsersTableId,
             id,
@@ -103,7 +103,7 @@ export async function POST(req: Request) {
           image_url,
         } = evt.data;
         try {
-          await databases.updateRow(
+          await databases.updateDocument(
             resolvedDatabaseId,
             resolvedUsersTableId,
             id,
@@ -137,7 +137,7 @@ export async function POST(req: Request) {
         }
 
         try {
-          await databases.deleteRow(
+          await databases.deleteDocument(
             resolvedDatabaseId,
             resolvedUsersTableId,
             id
