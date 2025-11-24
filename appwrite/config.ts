@@ -10,10 +10,21 @@ const createAdminClient = () => {
   const apiKey = process.env.APPWRITE_API_KEY;
 
   if (!endpoint || !projectId || !apiKey) {
+    console.error("Appwrite Config Error: Missing variables", {
+      hasEndpoint: !!endpoint,
+      hasProject: !!projectId,
+      hasKey: !!apiKey,
+    });
     throw new Error(
       "Missing Appwrite configuration. Please ensure NEXT_PUBLIC_APPWRITE_ENDPOINT, NEXT_PUBLIC_APPWRITE_PROJECT_ID, and APPWRITE_API_KEY are set."
     );
   }
+
+  console.log("Appwrite Admin Client Initialized", {
+    endpoint,
+    projectId,
+    keyLength: apiKey.length, // Log length to verify it's not empty/malformed
+  });
 
   const client = new Client()
     .setEndpoint(endpoint)
