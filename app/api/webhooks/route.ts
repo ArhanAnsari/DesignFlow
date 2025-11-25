@@ -45,7 +45,8 @@ export async function POST(req: Request) {
   const eventType = evt.type;
   const { databases } = createAdminClient();
   const DATABASE_ID = process.env.NEXT_PUBLIC_DATABASE_ID!;
-  const USERS_COLLECTION_ID = "users";
+  const USERS_COLLECTION_ID =
+    process.env.NEXT_PUBLIC_USERS_COLLECTION_ID || "users";
 
   console.log(`Received webhook with type: ${eventType}`);
 
@@ -61,15 +62,21 @@ export async function POST(req: Request) {
           image_url,
         } = evt.data;
 
-        const user = {
+        const userData = {
           email: email_addresses[0]?.email_address || "",
           firstName: first_name || "",
           lastName: last_name || "",
           username: username || "",
           photo: image_url || "",
+          clerkId: id,
         };
 
-        await databases.createRow(DATABASE_ID, USERS_COLLECTION_ID, id, user);
+        await databases.createDocument(
+          DATABASE_ID,
+          USERS_COLLECTION_ID,
+          id, // Use Clerk ID as document ID
+          userData
+        );
         console.log(`User ${id} created in Appwrite.`);
         break;
       }
@@ -84,7 +91,7 @@ export async function POST(req: Request) {
           image_url,
         } = evt.data;
 
-        const user = {
+        const userData = {
           email: email_addresses[0]?.email_address || "",
           firstName: first_name || "",
           lastName: last_name || "",
@@ -92,7 +99,12 @@ export async function POST(req: Request) {
           photo: image_url || "",
         };
 
-        await databases.updateRow(DATABASE_ID, USERS_COLLECTION_ID, id, user);
+        await databases.updateDocument(
+          DATABASE_ID,
+          USERS_COLLECTION_ID,
+          id,
+          userData
+        );
         console.log(`User ${id} updated in Appwrite.`);
         break;
       }
@@ -104,7 +116,7 @@ export async function POST(req: Request) {
           return new Response("Error: Missing user ID", { status: 400 });
         }
 
-        await databases.deleteRow(DATABASE_ID, USERS_COLLECTION_ID, id);
+        await databases.deleteDocument(DATABASE_ID, USERS_COLLECTION_ID, id);
         console.log(`User ${id} deleted from Appwrite.`);
         break;
       }
