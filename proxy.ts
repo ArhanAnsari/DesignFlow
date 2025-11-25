@@ -6,7 +6,7 @@ const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",
   "/sign-up(.*)",
   "/sso-callback(.*)",
-  "/api/webhooks(.*)",
+  "/api",
   "/(public|_next)(.*)",
 ]);
 
@@ -16,7 +16,7 @@ export default clerkMiddleware(async (auth, req) => {
 
   // Redirect unauthed → /landing
   await auth.protect({
-    unauthenticatedUrl: `${getBaseUrl()}/landing`
+    unauthenticatedUrl: `${getBaseUrl()}/landing`,
   });
 });
 
