@@ -69,12 +69,7 @@ export async function POST(req: Request) {
           photo: image_url || "",
         };
 
-        await databases.createDocument(
-          DATABASE_ID,
-          USERS_COLLECTION_ID,
-          id,
-          user
-        );
+        await databases.createRow(DATABASE_ID, USERS_COLLECTION_ID, id, user);
         console.log(`User ${id} created in Appwrite.`);
         break;
       }
@@ -97,12 +92,7 @@ export async function POST(req: Request) {
           photo: image_url || "",
         };
 
-        await databases.updateDocument(
-          DATABASE_ID,
-          USERS_COLLECTION_ID,
-          id,
-          user
-        );
+        await databases.updateRow(DATABASE_ID, USERS_COLLECTION_ID, id, user);
         console.log(`User ${id} updated in Appwrite.`);
         break;
       }
@@ -114,7 +104,7 @@ export async function POST(req: Request) {
           return new Response("Error: Missing user ID", { status: 400 });
         }
 
-        await databases.deleteDocument(DATABASE_ID, USERS_COLLECTION_ID, id);
+        await databases.deleteRow(DATABASE_ID, USERS_COLLECTION_ID, id);
         console.log(`User ${id} deleted from Appwrite.`);
         break;
       }
