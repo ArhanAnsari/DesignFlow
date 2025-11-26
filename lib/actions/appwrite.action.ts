@@ -1,31 +1,55 @@
 "use server";
-import { createAdminClient } from "@/appwrite/config";
-
+import { account, databases, ID } from "@/app/appwrite";
+import { createAdminClient, createSessionClient } from "@/appwrite/config";
+import auth from "@/auth";
+import { Query } from "appwrite";
 import { error } from "console";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { createVideoFeedback } from "./gemini.action";
 
-// import { toast } from "sonner";
+// ============================== Auth
 
+export async function loginWithEmailAndPassword({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) {
+  try {
+    const session = await account.createEmailPasswordSession(email, password);
+    return { success: true };
+  } catch (e) {
+    console.log(e);
+    return { success: false };
+  }
+}
 export async function signUp({
   email,
   username,
-
+  password,
   firstName,
   lastName,
-  clerkId,
 }: {
   email: string;
   username: string;
-
+  password: string;
   firstName: string;
   lastName: string;
-  clerkId: string;
 }) {
   const { databases } = await createAdminClient();
   try {
-    const promise = databases.createRow(
+    const session = await account.create(
+      ID.unique(),
+      email,
+      password,
+      username
+    );
+    await databases.createDocument(
       process.env.NEXT_PUBLIC_DATABASE_ID, // databaseId
       "users", // collectionId
-      clerkId,
+      session.$id,
       {
         email: email,
         username: username,
@@ -34,8 +58,65 @@ export async function signUp({
       }
     );
     return { success: true };
+  } catch (e: any) {
+    console.log(e);
+    return { success: false, error: e?.message || "Unknown error" };
+  }
+}
+// Login
+export async function createSession({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) {
+  try {
+    const { account } = await createAdminClient();
+    const session = await account.createEmailPasswordSession(email, password);
+    (await cookies()).set("session", session.secret, {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true,
+      expires: new Date(session.expire),
+      path: "/",
+    });
+
+    return { success: true };
   } catch (e) {
     console.log(e);
-    return { success: false, error: error };
+    return { success: false, message: e?.message || "Unknown error" };
+  }
+}
+
+// ============================== SIGN OUT
+export async function signOutAccount() {
+  auth.sessionCookie = (await cookies()).get("session");
+
+  if (auth.sessionCookie) {
+    try {
+      const { account } = await createSessionClient(auth.sessionCookie.value);
+      await account.deleteSession("current");
+    } catch (error) {}
+  }
+
+  (await cookies()).delete("session");
+  auth.user = null;
+  auth.sessionCookie = null;
+  redirect("/sign-in");
+}
+// ============================== GET USER PROFILE BY ID
+export async function getUserProfileByID({ id }: { id: string }) {
+  try {
+    const { databases } = await createAdminClient();
+    const user = await databases.getDocument(
+      process.env.NEXT_PUBLIC_DATABASE_ID, // databaseId
+      "users", // collectionId
+      id
+    );
+    return { succes: true, data: user };
+  } catch (error) {
+    console.log(error);
+    return { success: false };
   }
 }

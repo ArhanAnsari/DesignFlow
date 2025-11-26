@@ -12,6 +12,7 @@ import {
 } from "@clerk/nextjs";
 import Image from "next/image";
 import { BriefcaseIcon, HomeIcon } from "@primer/octicons-react";
+import { signOutAccount } from "@/lib/actions/appwrite.action";
 
 export const navigation = [
   {
@@ -78,22 +79,13 @@ export function Sidebar() {
 
       {/* Logout */}
       <div className="px-6 py-4 border-t border-[#2a2a2a]">
-        <SignedIn>
-          <SignOutButton redirectUrl="/">
-            <button className="flex w-full items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-300 hover:bg-[#2a2a2a] hover:text-white transition-colors cursor-pointer">
-              <LogOut className="h-5 w-5" />
-              Logout
-            </button>
-          </SignOutButton>
-        </SignedIn>
-        <SignedOut>
-          <SignInButton>
-            <button className="flex w-full items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-300 hover:bg-[#2a2a2a] hover:text-white transition-colors">
-              <LogOut className="h-5 w-5" />
-              Sign In
-            </button>
-          </SignInButton>
-        </SignedOut>
+        <button
+          className="flex w-full items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-300 hover:bg-[#2a2a2a] hover:text-white transition-colors cursor-pointer"
+          onClick={() => signOutAccount()}
+        >
+          <LogOut className="h-5 w-5" />
+          Logout
+        </button>
       </div>
     </div>
   );

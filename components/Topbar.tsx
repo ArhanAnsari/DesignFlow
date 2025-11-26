@@ -22,9 +22,9 @@ export function Topbar() {
       </div>
       <div className="flex items-center gap-4">
         {/* <ModeToggle /> */}
-        <SignedIn>
+        {/* <SignedIn>
           <UserButton />
-        </SignedIn>
+        </SignedIn> */}
       </div>
     </div>
   );

@@ -26,7 +26,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "DesignFlow - AI-Powered Lead Generation & CRM Platform",
-  description: "DesignFlow is an intelligent SaaS solution that helps businesses discover, manage, and nurture leads using AI-powered insights. Scale your customer relationships effortlessly.",
+  description:
+    "DesignFlow is an intelligent SaaS solution that helps businesses discover, manage, and nurture leads using AI-powered insights. Scale your customer relationships effortlessly.",
   keywords: [
     "lead generation",
     "CRM platform",
@@ -97,21 +98,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{ theme: dark }}>
-      <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} ${inter.variable} antialiased`}
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} ${inter.variable} antialiased`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
