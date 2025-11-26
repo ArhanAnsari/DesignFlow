@@ -1,15 +1,16 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
+
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LandingMobileNav from "@/components/landing/MobileNav";
+import auth from "@/auth";
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { isSignedIn } = useUser();
+  const isSignedIn = auth.user;
 
   return (
     <header
@@ -21,13 +22,12 @@ export default function Navbar() {
       "
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-5 py-4">
-
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <Image 
-            src="/icon.svg" 
-            alt="logo" 
-            width={32} 
+          <Image
+            src="/icon.svg"
+            alt="logo"
+            width={32}
             height={32}
             className="w-8 h-8"
           />

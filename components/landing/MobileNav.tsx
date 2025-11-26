@@ -5,7 +5,7 @@ import Link from "next/link";
 import { X, Menu } from "lucide-react";
 import { useState } from "react";
 import React from "react";
-import { useUser } from "@clerk/nextjs";
+import auth from "@/auth";
 
 const navLinks = [
   { href: "/landing", label: "Home" },
@@ -15,17 +15,17 @@ const navLinks = [
 
 export default function LandingMobileNav() {
   const [open, setOpen] = useState(false);
-  const { isSignedIn } = useUser();
+  const isSignedIn = auth.user;
 
   // Prevent body scroll when menu is open
   React.useEffect(() => {
     if (open) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [open]);
 
@@ -52,19 +52,19 @@ export default function LandingMobileNav() {
             />
 
             {/* Sliding Drawer */}
-         <motion.div
-            className="
+            <motion.div
+              className="
             fixed top-0 right-0 h-screen w-[85%] xs:w-72 sm:w-80 
             bg-white 
             shadow-2xl z-[1000] 
             flex flex-col p-6 overflow-y-auto
             "
-            style={{ maxWidth: '100vw' }}
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-             exit={{ x: "100%" }}
-             transition={{ type: "tween", duration: 0.25 }}
-          >
+              style={{ maxWidth: "100vw" }}
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.25 }}
+            >
               {/* Close Button */}
               <button
                 className="mb-6 self-end text-gray-700 hover:text-gray-900"
