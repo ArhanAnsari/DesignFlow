@@ -6,11 +6,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LandingMobileNav from "@/components/landing/MobileNav";
-import auth from "@/auth";
 
-export default function Navbar() {
+export default function Navbar({ user }: { user: any }) {
   const pathname = usePathname();
-  const isSignedIn = auth.user;
+  const isSignedIn = user;
 
   return (
     <header
@@ -112,7 +111,7 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         <div className="md:hidden">
-          <LandingMobileNav />
+          <LandingMobileNav user={user} />
         </div>
       </div>
     </header>

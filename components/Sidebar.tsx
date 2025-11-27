@@ -4,12 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Cloud, FileText, Users, LogOut, Send } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignOutButton,
-} from "@clerk/nextjs";
 import Image from "next/image";
 import { BriefcaseIcon, HomeIcon } from "@primer/octicons-react";
 import { signOutAccount } from "@/lib/actions/appwrite.action";

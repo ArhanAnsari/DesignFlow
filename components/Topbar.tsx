@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { SignedIn, UserButton } from "@clerk/nextjs";
+
 import { ModeToggle } from "@/components/ModeToggle";
 import { MobileNav } from "./MobileNav";
 

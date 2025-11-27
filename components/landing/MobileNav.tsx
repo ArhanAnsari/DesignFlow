@@ -5,7 +5,6 @@ import Link from "next/link";
 import { X, Menu } from "lucide-react";
 import { useState } from "react";
 import React from "react";
-import auth from "@/auth";
 
 const navLinks = [
   { href: "/landing", label: "Home" },
@@ -13,9 +12,9 @@ const navLinks = [
   { href: "#why-us", label: "Why Us?" },
 ];
 
-export default function LandingMobileNav() {
+export default function LandingMobileNav({ user }: { user: any }) {
   const [open, setOpen] = useState(false);
-  const isSignedIn = auth.user;
+  const isSignedIn = user;
 
   // Prevent body scroll when menu is open
   React.useEffect(() => {
