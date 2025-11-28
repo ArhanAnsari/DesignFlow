@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^2.0.40",
+    "@ai-sdk/perplexity": "^2.0.21",
     "@clerk/nextjs": "^6.35.1",
     "@clerk/themes": "^2.4.36",
     "@fortawesome/fontawesome-svg-core": "^7.1.0",

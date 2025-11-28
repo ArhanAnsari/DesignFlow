@@ -4,8 +4,8 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { generateLeads, qualifyLead, generateOutreachMessage, generateLeadInsights } from "@/lib/ai/service";
 import { errorResponse, successResponse } from "@/lib/api-response";
+import { generateLeads } from "@/lib/perplexity/service";
 
 /**
  * POST /api/ai/generate-leads
@@ -31,11 +31,15 @@ export async function POST(request: NextRequest) {
       count: count || 5,
     });
 
-    return NextResponse.json(successResponse(leads, "Leads generated successfully"));
+    return NextResponse.json(
+      successResponse(leads, "Leads generated successfully")
+    );
   } catch (error) {
     console.error("Error generating leads:", error);
     return NextResponse.json(
-      errorResponse(error instanceof Error ? error.message : "Failed to generate leads"),
+      errorResponse(
+        error instanceof Error ? error.message : "Failed to generate leads"
+      ),
       { status: 500 }
     );
   }
