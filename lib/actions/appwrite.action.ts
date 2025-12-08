@@ -120,3 +120,55 @@ export async function getUserProfileByID({ id }: { id: string }) {
     return { success: false };
   }
 }
+
+// Client Management
+export async function createClient({
+  name,
+  email,
+  phone,
+  address,
+  company,
+  note,
+}: {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+  company: string;
+  note: string;
+}) {
+  try {
+    const { databases } = await createAdminClient();
+    const client = await databases.createDocument(
+      process.env.NEXT_PUBLIC_DATABASE_ID, // databaseId
+      "clients", // collectionId
+      ID.unique(),
+      {
+        name: name,
+        email: email,
+        phone: phone,
+        address: address,
+        company: company,
+        note: note,
+        createdAt: new Date().toISOString(),
+      }
+    );
+    return { success: true, data: client };
+  } catch (error) {
+    console.log(error);
+    return { success: false };
+  }
+}
+export async function getClients() {
+  try {
+    const { databases } = await createAdminClient();
+    const clients = await databases.listDocuments(
+      process.env.NEXT_PUBLIC_DATABASE_ID, // databaseId
+      "clients" // collectionId
+    );
+    return { success: true, data: clients.documents };
+  } catch (error) {
+    console.log(error);
+    return { success: false };
+  }
+}
