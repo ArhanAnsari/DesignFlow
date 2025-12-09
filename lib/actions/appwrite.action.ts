@@ -3,10 +3,8 @@ import { account, databases, ID } from "@/app/appwrite";
 import { createAdminClient, createSessionClient } from "@/appwrite/config";
 import auth from "@/auth";
 import { Query } from "appwrite";
-import { error } from "console";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { createVideoFeedback } from "./gemini.action";
 
 // ============================== Auth
 
@@ -129,6 +127,7 @@ export async function createClient({
   address,
   company,
   note,
+  userId,
 }: {
   name: string;
   email: string;
@@ -136,6 +135,7 @@ export async function createClient({
   address: string;
   company: string;
   note: string;
+  userId: string;
 }) {
   try {
     const { databases } = await createAdminClient();
@@ -151,6 +151,7 @@ export async function createClient({
         company: company,
         note: note,
         createdAt: new Date().toISOString(),
+        userId: userId,
       }
     );
     return { success: true, data: client };
@@ -159,12 +160,13 @@ export async function createClient({
     return { success: false };
   }
 }
-export async function getClients() {
+export async function getClients({ userId }: { userId: string }) {
   try {
     const { databases } = await createAdminClient();
     const clients = await databases.listDocuments(
       process.env.NEXT_PUBLIC_DATABASE_ID, // databaseId
-      "clients" // collectionId
+      "clients", // collectionId
+      [Query.equal("userId", userId)]
     );
     return { success: true, data: clients.documents };
   } catch (error) {

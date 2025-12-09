@@ -15,7 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { createClient } from "@/lib/actions/appwrite.action";
 
-export function ClientDialog() {
+export function ClientDialog({ userId }: { userId: string }) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -27,6 +27,7 @@ export function ClientDialog() {
       address: formData.get("address"),
       company: formData.get("company"),
       note: formData.get("note"),
+      userId: userId,
     };
 
     console.log("Client Data:", clientData);

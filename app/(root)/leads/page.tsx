@@ -6,7 +6,7 @@ import { Sparkles, Users, Mail } from "lucide-react";
 
 export default function LeadsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br ">
       {/* Header */}
       <div className="bg-black border-b">
         <div className="max-w-7xl mx-auto px-6 py-8">
@@ -15,7 +15,8 @@ export default function LeadsPage() {
             <h1 className="text-3xl font-bold">Lead Management</h1>
           </div>
           <p className="text-gray-600">
-            AI-powered lead generation, qualification, and client management all in one place
+            AI-powered lead generation, qualification, and client management all
+            in one place
           </p>
         </div>
       </div>
@@ -23,15 +24,15 @@ export default function LeadsPage() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8 bg-dark">
         <Tabs defaultValue="generate" className="space-y-6 bg-dark">
-          <TabsList className="grid w-full grid-cols-3 lg:w-auto">
+          <TabsList className="grid w-full grid-cols-2 lg:w-auto">
             <TabsTrigger value="generate" className="flex items-center gap-2">
               <Sparkles className="w-4 h-4" />
               Generate
             </TabsTrigger>
-            <TabsTrigger value="outreach" className="flex items-center gap-2">
+            {/* <TabsTrigger value="outreach" className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
               Outreach
-            </TabsTrigger>
+            </TabsTrigger> */}
             <TabsTrigger value="dashboard" className="flex items-center gap-2">
               <Users className="w-4 h-4" />
               Dashboard
