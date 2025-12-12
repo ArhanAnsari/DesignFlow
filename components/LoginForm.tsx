@@ -52,7 +52,7 @@ export function LoginForm({ onLogin }: LoginFormProps) {
                   type="email"
                   placeholder="Email"
                   {...field}
-                  className="pb-1 w-[456px]"
+                  className="pb-1 w-full md:w-[456px]"
                 />
               </FormControl>
               <FormMessage />
@@ -70,7 +70,7 @@ export function LoginForm({ onLogin }: LoginFormProps) {
                   type="password"
                   placeholder="Password"
                   {...field}
-                  className="border-b-black border-b-2 pb-1 max-w-[456px]"
+                  className="border-b-black border-b-2 pb-1 w-full md:max-w-[456px]"
                 />
               </FormControl>
               <FormMessage />

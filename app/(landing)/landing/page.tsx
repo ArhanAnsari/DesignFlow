@@ -4,6 +4,7 @@ import Companies from "@/components/Sections/Companies";
 import HeroSection from "@/components/Sections/HeroSection";
 import Stats from "@/components/Sections/Stats";
 import React from "react";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const Page = async () => {
   const user = await auth.getUser();

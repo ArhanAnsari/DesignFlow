@@ -19,8 +19,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="  w-screen h-screen flex flex-row items-center justify-center gap-[-3] font-roboto">
-      <div className="py-10 px-8 bg-[#0F1117] rounded-[10px] flex flex-col gap-5 drop-shadow-lg border-black border-2 ">
+    <div className="w-screen h-screen flex flex-row items-center justify-center gap-[-3] font-roboto px-4 md:px-0">
+      <div className="py-10 px-6 md:px-8 bg-[#0F1117] rounded-[10px] flex flex-col gap-5 drop-shadow-lg border-black border-2 w-full max-w-md md:max-w-none md:w-auto">
         <div className="flex flex-col gap-2">
           <h1 className="text-[27px] font-bolf">Sign In to DesignFlow</h1>
           <p>Welcome Back! Sign in to DesignFlow to continue.</p>

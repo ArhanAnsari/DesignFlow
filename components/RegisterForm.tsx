@@ -56,14 +56,14 @@ export function RegisterForm({ onRegister }: RegisterFormProps) {
                   type="email"
                   placeholder="Email"
                   {...field}
-                  className="pb-1 w-[456px]"
+                  className="pb-1 w-full md:w-[456px]"
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-col md:flex-row gap-2">
           <FormField
             control={form.control}
             name="firstName"
@@ -112,7 +112,7 @@ export function RegisterForm({ onRegister }: RegisterFormProps) {
                   type="password"
                   placeholder="Password"
                   {...field}
-                  className="border-b-black border-b-2 pb-1 max-w-[456px]"
+                  className="border-b-black border-b-2 pb-1 w-full md:max-w-[456px]"
                 />
               </FormControl>
               <FormMessage />
