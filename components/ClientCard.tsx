@@ -29,7 +29,7 @@ const ClientCard = ({
           {company}
         </p>
       </div>
-      <div className="flex flex-row gap-2">
+      <div className="md:flex md:flex-row gap-2 grid grid-rows-2">
         <p className="text-muted-foreground flex flex-row gap-1">
           <Mail />
           {email}
