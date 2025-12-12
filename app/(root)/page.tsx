@@ -1,4 +1,4 @@
-import { getUser } from "@/lib/actions/appwrite.action";
+import { getUser, getClients } from "@/lib/actions/appwrite.action";
 import {
   Building2,
   Users,
@@ -10,77 +10,57 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+interface Client {
+  $id: string;
+  name: string;
+  email: string;
+  company: string;
+  phone: string;
+  address: string;
+  note: string;
+  createdAt: string;
+  userId: string;
+}
+
 export default async function Home() {
-  // Sample data
+  const user = await getUser();
+  const clientsData = await getClients({ userId: user?.data?.$id || "" });
+
+  // Calculate real statistics from client data
+  const clients = (clientsData.data as Client[] | undefined) || [];
+  const totalClients = clients.length;
+  const uniqueCompanies = new Set(clients.map((c) => c.company)).size;
+
   const stats = [
     {
       title: "Total Clients",
-      value: "24",
-      change: "+12%",
-      trend: "up",
+      value: totalClients.toString(),
       icon: Users,
       color: "from-blue-500 to-cyan-500",
     },
     {
-      title: "Active Leads",
-      value: "18",
-      change: "+8%",
-      trend: "up",
-      icon: TrendingUp,
-      color: "from-purple-500 to-pink-500",
-    },
-    {
       title: "Companies",
-      value: "15",
-      change: "+5%",
-      trend: "up",
+      value: uniqueCompanies.toString(),
       icon: Building2,
-      color: "from-orange-500 to-red-500",
-    },
-  ];
-
-  const recentActivity = [
-    {
-      id: 1,
-      type: "client",
-      title: "New client added",
-      description: "Acme Corporation joined as a client",
-      time: "2 hours ago",
-      icon: Users,
-    },
-    {
-      id: 2,
-      type: "lead",
-      title: "Lead converted",
-      description: "TechStart Inc. converted to client",
-      time: "5 hours ago",
-      icon: TrendingUp,
-    },
-    {
-      id: 3,
-      type: "meeting",
-      title: "Meeting scheduled",
-      description: "Call with Global Solutions at 3 PM",
-      time: "1 day ago",
-      icon: Calendar,
-    },
-    {
-      id: 4,
-      type: "email",
-      title: "Email sent",
-      description: "Proposal sent to Innovation Labs",
-      time: "2 days ago",
-      icon: Mail,
+      color: "from-purple-500 to-pink-500",
     },
   ];
 
   const quickActions = [
     { title: "Add Client", href: "/clients", icon: Users },
     { title: "Generate Lead", href: "/leads", icon: TrendingUp },
-    { title: "Schedule Meeting", href: "#", icon: Calendar },
-    { title: "Send Email", href: "#", icon: Mail },
+    // { title: "Schedule Meeting", href: "#", icon: Calendar },
+    // { title: "Send Email", href: "#", icon: Mail },
   ];
-  const user = await getUser();
+
+  // Get the 4 most recent clients sorted by creation date
+  const recentClients =
+    (clientsData.data as Client[] | undefined)
+      ?.sort(
+        (a: Client, b: Client) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      )
+      .slice(0, 4) || [];
 
   return (
     <div className="flex flex-col gap-8">
@@ -109,14 +89,6 @@ export default async function Home() {
                     {stat.title}
                   </p>
                   <h3 className="text-4xl font-bold">{stat.value}</h3>
-                  <div className="flex items-center gap-1">
-                    <span className="text-green-500 text-sm font-semibold">
-                      {stat.change}
-                    </span>
-                    <span className="text-muted-foreground text-xs">
-                      from last month
-                    </span>
-                  </div>
                 </div>
                 <div
                   className={`p-3 rounded-lg bg-gradient-to-br ${stat.color} opacity-80 group-hover:opacity-100 transition-opacity`}
@@ -134,41 +106,46 @@ export default async function Home() {
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Recent Activity */}
+        {/* Recent Clients */}
         <div className="lg:col-span-2 border-2 border-[#313131] rounded-xl p-6 bg-[#0a0a0a]">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold">Recent Activity</h2>
-            <Link
-              href="#"
-              className="text-sm text-muted-foreground hover:text-white transition-colors flex items-center gap-1"
-            >
-              View all
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            <h2 className="text-2xl font-bold">Newest Clients</h2>
           </div>
           <div className="flex flex-col gap-4">
-            {recentActivity.map((activity) => {
-              const Icon = activity.icon;
-              return (
+            {recentClients.length > 0 ? (
+              recentClients.map((client: Client) => (
                 <div
-                  key={activity.id}
+                  key={client.$id}
                   className="flex items-start gap-4 p-4 rounded-lg bg-[#131313] hover:bg-[#1a1a1a] transition-colors border border-[#252525]"
                 >
                   <div className="p-2 rounded-lg bg-[#252525]">
-                    <Icon className="w-5 h-5 text-muted-foreground" />
+                    <Users className="w-5 h-5 text-blue-500" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-sm">{activity.title}</h4>
-                    <p className="text-muted-foreground text-sm">
-                      {activity.description}
-                    </p>
+                    <h4 className="font-semibold text-base">{client.name}</h4>
+                    <div className="flex flex-col gap-1 mt-1">
+                      <p className="text-muted-foreground text-sm flex items-center gap-1">
+                        <Building2 className="w-3 h-3" />
+                        {client.company}
+                      </p>
+                      <p className="text-muted-foreground text-sm flex items-center gap-1">
+                        <Mail className="w-3 h-3" />
+                        {client.email}
+                      </p>
+                    </div>
                   </div>
                   <span className="text-xs text-muted-foreground whitespace-nowrap">
-                    {activity.time}
+                    {new Date(client.createdAt).toLocaleDateString()}
                   </span>
                 </div>
-              );
-            })}
+              ))
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-muted-foreground">
+                  No clients yet. Add your first client to get started!
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -194,34 +171,6 @@ export default async function Home() {
                 </Link>
               );
             })}
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Section - Upcoming Tasks */}
-      <div className="border-2 border-[#313131] rounded-xl p-6 bg-gradient-to-br from-[#0a0a0a] to-[#050505]">
-        <h2 className="text-2xl font-bold mb-4">Upcoming This Week</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="flex items-center gap-3 p-4 rounded-lg bg-[#131313] border border-[#252525]">
-            <Calendar className="w-5 h-5 text-blue-500" />
-            <div>
-              <p className="font-semibold text-sm">3 Meetings</p>
-              <p className="text-xs text-muted-foreground">Scheduled</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 p-4 rounded-lg bg-[#131313] border border-[#252525]">
-            <Phone className="w-5 h-5 text-green-500" />
-            <div>
-              <p className="font-semibold text-sm">5 Follow-ups</p>
-              <p className="text-xs text-muted-foreground">Pending</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 p-4 rounded-lg bg-[#131313] border border-[#252525]">
-            <Mail className="w-5 h-5 text-purple-500" />
-            <div>
-              <p className="font-semibold text-sm">8 Proposals</p>
-              <p className="text-xs text-muted-foreground">To Send</p>
-            </div>
           </div>
         </div>
       </div>
