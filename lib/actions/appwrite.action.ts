@@ -118,6 +118,23 @@ export async function getUserProfileByID({ id }: { id: string }) {
     return { success: false };
   }
 }
+export async function getUser() {
+  const sessionCookie = (await cookies()).get("session");
+
+  if (!sessionCookie) {
+    redirect("/sign-in");
+  }
+
+  // Create authenticated session client
+  const { account } = await createSessionClient(sessionCookie.value);
+
+  try {
+    const user = await account.get();
+    return { success: true, data: user };
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 // Client Management
 export async function createClient({
