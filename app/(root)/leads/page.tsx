@@ -33,10 +33,6 @@ export default function LeadsPage() {
               <Mail className="w-4 h-4" />
               Outreach
             </TabsTrigger> */}
-            <TabsTrigger value="dashboard" className="flex items-center gap-2">
-              <Users className="w-4 h-4" />
-              Dashboard
-            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="generate" className="space-y-6">

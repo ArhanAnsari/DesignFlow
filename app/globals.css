@@ -150,3 +150,57 @@
     }
   }
 }
+
+@layer utilities {
+  .accent-gradient {
+    @apply bg-gradient-to-b from-[#0061FF] to-[#60EFFF] text-white;
+  }
+  .sidebar {
+    @apply flex h-screen w-[266px] flex-col bg-[#0F1117]/50 pr-6 py-10 justify-between border-r border-[#101012];
+    .sidebar-link {
+      @apply flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors;
+    }
+    .sidebar-link-inactive {
+      @apply text-gray-300 hover:bg-[#2a2a2a] hover:text-white;
+    }
+    .sidebar-footer {
+      @apply px-6 py-4 border-t border-[#2a2a2a];
+      .button {
+        @apply flex w-full items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-300 hover:bg-[#2a2a2a] hover:text-white transition-colors cursor-pointer;
+      }
+    }
+    .sidebar-logo-container {
+      @apply flex h-16 items-center gap-2;
+      .image {
+        @apply flex items-center justify-center w-8 h-8 rounded-lg bg-linear-to-br;
+      }
+      .text {
+        @apply text-2xl font-semibold text-white font-space;
+      }
+    }
+  }
+
+  .home-page {
+    .header-title {
+      @apply font-bold text-5xl bg-linear-to-r from-white to-gray-400 bg-clip-text text-transparent;
+    }
+    .stats-card {
+      @apply relative overflow-hidden border-2 border-[#313131] rounded-xl p-6 bg-linear-to-br from-[#1a1a1a] to-[#0a0a0a] hover:border-[#414141] transition-all duration-300;
+    }
+    .content-card {
+      @apply border-2 border-[#313131] rounded-xl p-6 bg-[#0a0a0a];
+    }
+    .client-item {
+      @apply flex items-start gap-4 p-4 rounded-lg bg-[#131313] hover:bg-[#1a1a1a] transition-colors border border-[#252525];
+    }
+    .client-icon {
+      @apply p-2 rounded-lg bg-[#252525];
+    }
+    .quick-action-item {
+      @apply flex items-center gap-3 p-4 rounded-lg bg-[#131313] hover:bg-linear-to-r hover:from-[#1a1a1a] hover:to-[#252525] transition-all duration-300 border border-[#252525] hover:border-[#414141];
+    }
+    .quick-action-icon {
+      @apply p-2 rounded-lg bg-[#252525] hover:bg-[#313131] transition-colors;
+    }
+  }
+}

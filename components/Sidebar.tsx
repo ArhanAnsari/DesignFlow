@@ -30,11 +30,11 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-screen w-[266px] flex-col bg-[#0F1117]/50 pr-6 py-10 justify-between border-r border-[#101012]">
+    <div className="sidebar">
       <div className="flex flex-col gap-[70px] pl-6">
         {/* Logo */}
-        <div className="flex h-16 items-center gap-2">
-          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-linear-to-br">
+        <div className="sidebar-logo-container">
+          <div className="image">
             <Image
               src="/icon.png"
               alt="DesignFlow Logo"
@@ -42,9 +42,7 @@ export function Sidebar() {
               height={16}
             />
           </div>
-          <span className="text-2xl font-semibold text-white font-space">
-            DesignFlow
-          </span>
+          <span className="text">DesignFlow</span>
         </div>
 
         {/* Navigation */}
@@ -57,10 +55,8 @@ export function Sidebar() {
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors",
-                  isActive
-                    ? "bg-linear-to-b from-[#0061FF] to-[#60EFFF] text-white"
-                    : "text-gray-300 hover:bg-[#2a2a2a] hover:text-white"
+                  "sidebar-link",
+                  isActive ? "accent-gradient" : "sidebar-link-inactive"
                 )}
               >
                 <Icon className="h-5 w-5" />
@@ -71,12 +67,9 @@ export function Sidebar() {
         </nav>
       </div>
 
-      {/* Logout */}
-      <div className="px-6 py-4 border-t border-[#2a2a2a]">
-        <button
-          className="flex w-full items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-300 hover:bg-[#2a2a2a] hover:text-white transition-colors cursor-pointer"
-          onClick={() => signOutAccount()}
-        >
+      {/* Footer */}
+      <div className="sidebar-footer">
+        <button className="button" onClick={() => signOutAccount()}>
           <LogOut className="h-5 w-5" />
           Logout
         </button>
