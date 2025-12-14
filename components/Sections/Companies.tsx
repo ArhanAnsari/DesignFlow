@@ -6,8 +6,9 @@ const Companies = () => {
       id="partners"
       className="py-16 flex flex-col items-center gap-8 px-4 text-center font-space"
     >
-      <p className="text-xl md:text-2xl font-medium max-w-2xl text-color-gray-700 dark:text-gray-300">
-        Trusted by over 14,540 businesses to enhance learning and drive educational growth.
+      <p className="text-xl md:text-2xl font-medium max-w-2xl text-color-gray-700 text-black">
+        Trusted by over 14,540 businesses to enhance learning and drive
+        educational growth.
       </p>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 place-items-center">

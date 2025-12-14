@@ -6,10 +6,16 @@ export const BackgroundRippleEffect = ({
   rows = 8,
   cols = 27,
   cellSize = 56,
+  className,
+  fillColor,
+  borderColor,
 }: {
   rows?: number;
   cols?: number;
   cellSize?: number;
+  className?: string; // For the container styling (e.g., gradients)
+  fillColor?: string; // For the grid cells
+  borderColor?: string; // For the grid borders
 }) => {
   const [clickedCell, setClickedCell] = useState<{
     row: number;
@@ -54,7 +60,10 @@ export const BackgroundRippleEffect = ({
       className={cn(
         "absolute inset-0 h-full w-full",
         "[--cell-border-color:var(--color-neutral-300)] [--cell-fill-color:var(--color-neutral-100)] [--cell-shadow-color:var(--color-neutral-500)]",
-        "dark:[--cell-border-color:var(--color-neutral-700)] dark:[--cell-fill-color:var(--color-neutral-900)] dark:[--cell-shadow-color:var(--color-neutral-800)]"
+        "absolute inset-0 h-full w-full",
+        "[--cell-border-color:var(--color-neutral-300)] [--cell-fill-color:var(--color-neutral-100)] [--cell-shadow-color:var(--color-neutral-500)]",
+        "dark:[--cell-border-color:var(--color-neutral-700)] dark:[--cell-fill-color:var(--color-neutral-900)] dark:[--cell-shadow-color:var(--color-neutral-800)]",
+        className
       )}
     >
       <div className="relative h-auto w-auto overflow-hidden">
@@ -65,8 +74,8 @@ export const BackgroundRippleEffect = ({
           rows={gridSize.rows}
           cols={gridSize.cols}
           cellSize={cellSize}
-          borderColor="var(--cell-border-color)"
-          fillColor="var(--cell-fill-color)"
+          borderColor={borderColor || "var(--cell-border-color)"}
+          fillColor={fillColor || "var(--cell-fill-color)"}
           clickedCell={clickedCell}
           onCellClick={(row, col) => {
             setClickedCell({ row, col });

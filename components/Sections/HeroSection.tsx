@@ -7,18 +7,22 @@ import { Badge } from "@/components/ui/badge";
 const HeroSection = () => {
   return (
     <section className="relative flex flex-col items-center justify-start min-h-[90vh] w-full overflow-hidden pt-24 px-4">
-      <BackgroundRippleEffect />
+      <BackgroundRippleEffect
+        className="bg-gradient-to-br from-cyan-400/20 via-blue-500/20 to-transparent"
+        fillColor="transparent"
+        borderColor="rgba(255, 255, 255, 0.15)"
+      />
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-4xl">
         <Badge className="px-6 py-2 bg-white text-black font-semibold text-sm md:text-base shadow-sm border border-gray-200/50">
           3500+ pro users
         </Badge>
 
-        <h1 className="mt-8 font-space text-3xl md:text-5xl lg:text-7xl font-bold text-black dark:text-white leading-tight">
+        <h1 className="mt-8 font-space text-3xl md:text-5xl lg:text-7xl font-bold text-black  leading-tight">
           Simplify, Scale, Succeed with Our SaaS Solution
         </h1>
 
-        <p className="mt-4 max-w-xl text-lg md:text-xl text-black/70 dark:text-neutral-400">
+        <p className="mt-4 max-w-xl text-lg md:text-xl text-black/70 ">
           Empower your customer relations by getting trusted clients, faster and
           easier.
         </p>
