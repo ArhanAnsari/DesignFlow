@@ -84,8 +84,14 @@ export function LoginForm({ onLogin }: LoginFormProps) {
         >
           Login
         </Button>
-        <p className="text-white">
-          Dont have an account? <Link href="/sign-up">Sign Up</Link>
+        <p className="text-white text-center">
+          Dont have an account?{" "}
+          <Link
+            href="/sign-up"
+            className="bg-gradient-to-b from-[#0061FF] to-[#60EFFF] bg-clip-text text-transparent"
+          >
+            Sign Up
+          </Link>
         </p>
       </form>
     </Form>
