@@ -101,7 +101,7 @@ export async function signOutAccount() {
   (await cookies()).delete("session");
   auth.user = null;
   auth.sessionCookie = null;
-  redirect("/sign-in");
+  redirect("/landing");
 }
 // ============================== GET USER PROFILE BY ID
 export async function getUserProfileByID({ id }: { id: string }) {

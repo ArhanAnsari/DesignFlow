@@ -28,7 +28,7 @@ export function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
-    return NextResponse.redirect(new URL("/sign-in", request.url));
+    return NextResponse.redirect(new URL("/landing", request.url));
   }
 
   return NextResponse.next();
